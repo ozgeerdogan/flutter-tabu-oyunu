@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabu_aplication/genel_widgets/genel_widgets.dart';
+import 'package:tabu_aplication/page/play_page.dart';
 
 class TimeOver extends StatefulWidget {
   const TimeOver({super.key});
@@ -174,7 +175,10 @@ class _TimeOverState extends State<TimeOver> {
             ),
             const SizedBox(height: 40),
             RegisterDevamEtBtn(
-              function: () {},
+              function: () {Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PlayPage()),
+                  );},
               width: 200,
               color: Colors.red,
               btnAdi: "DEVAM",

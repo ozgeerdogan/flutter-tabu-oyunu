@@ -6,7 +6,9 @@ import 'package:tabu_aplication/page/time_over_page.dart';
 import '../genel_widgets/genel_widgets.dart';
 
 class PlayPage extends StatefulWidget {
-  const PlayPage({super.key});
+  const PlayPage({
+    super.key,
+  });
 
   @override
   State<PlayPage> createState() => _PlayPageState();
@@ -14,7 +16,7 @@ class PlayPage extends StatefulWidget {
 
 class _PlayPageState extends State<PlayPage> {
   Color cardColor = const Color.fromARGB(255, 32, 29, 79);
-  static const maxSeconds = 10;
+  static const maxSeconds = 30;
   int seconds = maxSeconds;
   Timer? timer;
   void resetTimer() => setState(() {
@@ -25,12 +27,23 @@ class _PlayPageState extends State<PlayPage> {
     if (reset) {
       resetTimer();
     }
+
+    void stopTimer({bool reset = true}) {
+      if (reset) {
+        resetTimer();
+      }
+      setState(() {
+        timer?.cancel();
+      });
+    }
+
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (seconds > 0) {
         setState(() {
           seconds--;
         });
       } else {
+        stopTimer(reset: false);
         setState(() {
           Navigator.push(
             context,
@@ -44,7 +57,7 @@ class _PlayPageState extends State<PlayPage> {
   @override
   void initState() {
     super.initState();
-    startTimer();
+    //startTimer();
   }
 
   @override
@@ -66,7 +79,7 @@ class _PlayPageState extends State<PlayPage> {
                 ],
               ),
             ),
-            Expanded(child: wordCard(context)),
+            const WordCard(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -89,59 +102,10 @@ class _PlayPageState extends State<PlayPage> {
     );
   }
 
-  Container wordCard(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20), color: cardColor),
-      width: MediaQuery.of(context).size.width,
-      height: 400,
-      child: Column(
-        children: const [
-          SizedBox(
-            height: 60,
-          ),
-          Text(
-            "ANAHTAR",
-            style: TextStyle(
-                color: Colors.red, fontSize: 40, fontWeight: FontWeight.bold),
-          ),
-          Divider(
-            color: Color.fromARGB(255, 92, 92, 92),
-            height: 35,
-          ),
-          SizedBox(height: 25),
-          Text(
-            "Kilit",
-            style: TextStyle(color: Colors.white, fontSize: 25),
-          ),
-          SizedBox(height: 8),
-          Text(
-            "Metal",
-            style: TextStyle(color: Colors.white, fontSize: 25),
-          ),
-          SizedBox(height: 8),
-          Text(
-            "Kasa",
-            style: TextStyle(color: Colors.white, fontSize: 25),
-          ),
-          SizedBox(height: 8),
-          Text(
-            "Kapı",
-            style: TextStyle(color: Colors.white, fontSize: 25),
-          ),
-          SizedBox(height: 8),
-          Text(
-            "Çilingir",
-            style: TextStyle(color: Colors.white, fontSize: 25),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildtimer() {
     if (seconds == 0) {
-      return const Icon(Icons.alarm, size: 100, color: Colors.red);
+      return const Expanded(
+          child: Icon(Icons.alarm, size: 110, color: Colors.red));
     } else {
       return Expanded(
         child: Padding(

@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tabu_aplication/models/words.data.dart';
 
 class RegisterDevamEtBtn extends StatelessWidget {
   final Function function;
@@ -143,6 +146,88 @@ class PauseCard extends StatelessWidget {
                 color: Colors.white,
               ),
             )),
+      ),
+    );
+  }
+}
+
+class WordCard extends StatelessWidget {
+  final String? title;
+  const WordCard({super.key, this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: const Color.fromARGB(255, 32, 29, 79)),
+      width: MediaQuery.of(context).size.width,
+      height: 400,
+      child: ListView.builder(
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            children: [
+              const SizedBox(
+                height: 60,
+              ),
+              Text(
+                Provider.of<WordData>(context)
+                    .words[index]
+                    .title[index]
+                    .toString(),
+                style: const TextStyle(
+                    color: Colors.red,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Divider(
+                color: Color.fromARGB(255, 92, 92, 92),
+                height: 35,
+              ),
+              const SizedBox(height: 25),
+              Text(
+                Provider.of<WordData>(context)
+                    .words[index]
+                    .title[index + 1]
+                    .toString(),
+                style: const TextStyle(color: Colors.white, fontSize: 25),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                Provider.of<WordData>(context)
+                    .words[index]
+                    .title[index + 2]
+                    .toString(),
+                style: const TextStyle(color: Colors.white, fontSize: 25),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                Provider.of<WordData>(context)
+                    .words[index]
+                    .title[index + 3]
+                    .toString(),
+                style: const TextStyle(color: Colors.white, fontSize: 25),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                Provider.of<WordData>(context)
+                    .words[index]
+                    .title[index + 4]
+                    .toString(),
+                style: const TextStyle(color: Colors.white, fontSize: 25),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                Provider.of<WordData>(context)
+                    .words[index]
+                    .title[index + 5]
+                    .toString(),
+                style: const TextStyle(color: Colors.white, fontSize: 25),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
